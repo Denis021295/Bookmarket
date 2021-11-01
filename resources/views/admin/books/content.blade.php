@@ -30,9 +30,24 @@
           </a>
         </td>
         <td>
-          <a href="{{ route('books.destroy', ['book' => $book->id]) }}">
-            <i class="bi bi-dash-circle"></i>
-          </a>
+
+          <form 
+            action="{{ route('books.destroy', ['book' => $book->id]) }}" 
+            method="POST"
+            class="mb-0 mt-0"
+          >
+            @csrf
+            @method("DELETE")
+            <button 
+              type="submit" 
+              class="btn btn-secondary"
+              name="book"
+              value="{{ $book->id }}"
+            >
+              <i class="bi bi-dash-circle"></i>
+            </button>
+          </form>
+
         </td>
       </tr>
     @endforeach

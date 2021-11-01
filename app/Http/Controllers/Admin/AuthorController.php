@@ -101,13 +101,13 @@ class AuthorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        $check = Book::where('publisher_id', '=', $request->id)->count();
+        $check = Book::where('author_id', $request->author)->count();
         if ($check == 0) {
-            Author::destroy($request->id);
+            Author::destroy($request->author);
             return redirect()->back();  
         }
-        return abort(403);
+        return abort(403, 'Удаление запрещено! За автором числятся книги');
     }
 }

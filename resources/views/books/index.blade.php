@@ -127,7 +127,10 @@
     </div>
   </div>
 
-<div class="col-md-12"> 
+<div 
+  class="col-md-12"
+  style="margin: 0 auto; width: 6rem;"
+> 
   @if ($books instanceof Illuminate\Pagination\LengthAwarePaginator)
     {{ $books->links() }}
   @endif

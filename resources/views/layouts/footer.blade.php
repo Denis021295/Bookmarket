@@ -1,7 +1,15 @@
 <footer class="text-muted py-5 mt-5">
   <div class="container">
     <p class="float-end mb-1">
-      <a href="#">Back to top</a>
+
+      <a 
+        href="#"
+        class="h5 text-decoration-none text-dark"
+      >
+        <i class="bi bi-arrow-up-circle-fill"></i>
+        Back to top
+      </a>
+
     </p>
     <p class="h5"> 
       <i class="bi bi-github"></i> 

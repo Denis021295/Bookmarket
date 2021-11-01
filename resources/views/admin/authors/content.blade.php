@@ -29,9 +29,26 @@
           </a>
         </td>
         <td>
-          <a href="{{ route('authors.destroy', ['author' => $author->id]) }}">
-            <i class="bi bi-dash-circle"></i>
-          </a>
+
+
+          <form 
+            action="{{ route('authors.destroy', ['author' => $author->id]) }}" 
+            method="POST"
+            class="mb-0 mt-0"
+          >
+            @csrf
+            @method("DELETE")
+            <button 
+              type="submit" 
+              class="btn btn-secondary"
+              name="author"
+              value="{{ $author->id }}"
+            >
+              <i class="bi bi-dash-circle"></i>
+            </button>
+          </form>
+
+
         </td>
       </tr>
     @endforeach

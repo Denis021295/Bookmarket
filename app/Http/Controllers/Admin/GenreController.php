@@ -114,6 +114,6 @@ class GenreController extends Controller
             Genre::destroy($request->id);
             return redirect()->back();  
         }
-        return abort(403);
+        return abort(403, 'Удаление запрещено! За жанром числятся книги');
     }
 }

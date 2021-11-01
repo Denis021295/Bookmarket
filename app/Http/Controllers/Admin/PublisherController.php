@@ -107,13 +107,13 @@ class PublisherController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
         $check = Book::where('publisher_id', '=', $request->id)->count();
         if ($check == 0) {
             Publisher::destroy($request->id);
             return redirect()->back();  
         }
-        return abort(403);
+        return abort(403, 'Удаление запрещено! У издательства заявлены книги');
     }
 }

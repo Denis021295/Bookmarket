@@ -32,7 +32,7 @@ class LanguageController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.languages.add');
     }
 
     /**
@@ -43,7 +43,16 @@ class LanguageController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|min:3|unique:languages',
+        ]);
+
+        Language::create([
+            'name' => $request->name,
+        ]);
+
+        session()->flash('success', 'Язык добавлен');
+        return redirect()->back();
     }
 
     /**
@@ -63,9 +72,10 @@ class LanguageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request)
     {
-        //
+        $language = Language::findOrFail($request->id);
+        return view('admin.languages.edit', compact('language'));
     }
 
     /**
@@ -77,7 +87,16 @@ class LanguageController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name' => 'required|min:3|unique:languages',
+        ]); 
+
+        $language = Language::findOrFail($request->id);
+        $language->name = $request->name;
+        $language->update();
+
+        session()->flash('success', 'Язык обновлен');
+        return redirect()->back();
     }
 
     /**
@@ -86,8 +105,13 @@ class LanguageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        $check = Book::where('language_id', $request->id)->count();
+        if ($check == 0) {
+            Language::destroy($request->id);
+            return redirect()->back();  
+        }
+        return abort(403, 'Удалить язык нельзя! За ним заявлены книги');
     }
 }

@@ -165,6 +165,6 @@ class BookController extends Controller
      */
     public function destroy($id)
     {
-        return abort(403);
+        return abort(403, 'Удаление книг пока недоступно');
     }
 }

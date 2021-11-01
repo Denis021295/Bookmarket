@@ -29,9 +29,24 @@
           </a>
         </td>
         <td>
-          <a href="{{ route('languages.destroy', ['language' => $language->id]) }}">
-            <i class="bi bi-dash-circle"></i>
-          </a>
+
+          <form 
+            action="{{ route('languages.destroy', ['language' => $language->id]) }}" 
+            method="POST"
+            class="mb-0 mt-0"
+          >
+            @csrf
+            @method("DELETE")
+            <button 
+              type="submit" 
+              class="btn btn-secondary"
+              name="id"
+              value="{{ $language->id }}"
+            >
+              <i class="bi bi-dash-circle"></i>
+            </button>
+          </form>
+
         </td>
       </tr>
     @endforeach
