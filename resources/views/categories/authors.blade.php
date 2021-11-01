@@ -16,14 +16,14 @@
   <div class="row">
 
     <!-- start 8 -->
-    <div class="col-6">
+    <div class="col-lg-6">
 
     	@foreach($authors as $author)
 		<ol class="list-group">
 		  <li class="list-group-item d-flex justify-content-between align-items-start mb-1">
 		    <div class="ms-2 me-auto">
 		      <div class="fw-bold"> 
-		      	<a href="{{ route('author.book', ['name' => $author->slug]) }}"> {{ $author->name }} </a>
+		      	<a href="{{ route('author.book', ['author' => $author->slug]) }}"> {{ $author->name }} </a>
 		      </div>
 		      {{ $author->slug }}
 		    </div>
@@ -36,7 +36,7 @@
     <!-- end 8 -->
 
     <!-- start 4 -->
-    <div class="col-6">
+    <div class="col-lg-6">
     </div>
     <!-- end 4 -->
 

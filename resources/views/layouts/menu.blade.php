@@ -30,8 +30,8 @@
               >
                 {{ auth()->user()->login ?? auth()->user()->email }}
               </a>
-              <br>
                 @if(auth()->user()->is_admin)
+                  <br>
                   <a 
                     class="text-decoration-none text-light"
                     href="{{ route('admin') }}"
@@ -39,8 +39,8 @@
                     <i class="bi bi-gear"></i>
                     Админ панель 
                   </a>
+                  <br>
                 @endif
-              <br>
               <a 
                 class="text-decoration-none text-light" 
                 href="{{ route('basket') }}"
@@ -104,7 +104,8 @@
             class="btn btn-warning"
             width="20%"
           >
-            Поиск
+            <i class="bi bi-search"></i>
+            поиск
           </button>
         </form>
 

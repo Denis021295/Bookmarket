@@ -12,8 +12,9 @@ class BasketController extends Controller
 {
     public function index() 
     {
-    	$client = Client::find(Auth::user()->id);
-        $basket = Client::where('id', '=', $client->id)->with('books')->get();
+        $basket = Client::where('id', auth()->user()->id)->with('books', function ($query){
+        	$query->with('authors');
+        })->get();
         $books = $basket[0]->books;
         return view('shop.index', compact('books'));
     }

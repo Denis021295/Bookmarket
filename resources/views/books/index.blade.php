@@ -43,6 +43,11 @@
         </select>
         <button type="submit" class="btn btn-primary btn-sm">сейчас</button>
       </form>
+      @if(session()->has('sort'))
+        <div class="alert alert-light p-2 mt-3 h5" role="alert">
+          Сортировка | <b>{{ Str::upper(session('sort')) }}</b>
+        </div>
+      @endif
     </div>
 
 

@@ -30,7 +30,7 @@ use App\Http\Controllers\ProfileController;
 Route::get('/', [BookController::class, 'index'])->name('home');
 Route::get('/view/{id}', [BookController::class, 'view'])->name('view.book');
 Route::get('/shop/{id}', [BookController::class, 'shop'])->name('shop.book');
-Route::get('/author/{name}', [AuthorController::class, 'index'])->name('author.book');
+Route::get('/author/{author:slug}', [AuthorController::class, 'index'])->name('author.book');
 Route::get('/genre/{name}', [GenreController::class, 'index'])->name('genre.book');
 Route::get('/publisher/{name}', [PublisherController::class, 'index'])->name('publisher.book');
 Route::get('/authors', [CaregoriesController::class, 'authors'])->name('all.authors');

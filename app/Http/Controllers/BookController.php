@@ -14,13 +14,13 @@ class BookController extends Controller
 {
     public function index() 
     {
-    	$books = Book::with('authors')->orderBy('id', 'desc')->paginate(6);
+    	$books = Book::with('authors', 'clients', 'ratings', 'comments')->orderBy('id', 'desc')->paginate(6);
     	return view('books.index', compact('books'));
     }
 
     public function view($id) 
     {
-    	$book = Book::findOrFail($id);
+    	$book = Book::with('authors','clients','ratings','comments','publishers','languages')->findOrFail($id);
     	return view('books.view', compact('book'));
     }
 
@@ -51,15 +51,19 @@ class BookController extends Controller
     {
         if ($request->sort == 'rating') {
             $books = collect([]);
-            $ratings = Rating::orderBy($request->sort, 'desc')->get();
+            $ratings = Rating::select('*')->with('books', function ($query){
+                $query->with('authors','comments','ratings');
+            })->orderBy($request->sort, 'desc')->get();
             foreach ($ratings as $rating) 
             {
                 $books->push($rating->books);
             }
+            session()->flash('sort', $request->sort);
             return view('books.index', compact('books'));
         }
 
-        $books = Book::orderBy($request->sort, 'desc')->get();
+        $books = Book::with('authors','comments','ratings', 'clients')->orderBy($request->sort, 'desc')->get();
+        session()->flash('sort', $request->sort);
         return view('books.index', compact('books'));
     }
 

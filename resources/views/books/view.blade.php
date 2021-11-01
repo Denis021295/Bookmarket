@@ -17,13 +17,13 @@
   <div class="row">
 
     <!-- start 8 -->
-    <div class="col-6">
+    <div class="col-lg-6">
       <img width="100%" src="../{{ $book->getImage() }}">
     </div>
     <!-- end 8 -->
 
     <!-- start 4 -->
-    <div class="col-6">
+    <div class="col-lg-6">
 
 
       <table class="table mb-5">
@@ -32,7 +32,8 @@
             <th scope="row">Автор</th>
             <td> 
               <a 
-                href="{{ route('author.book', ['name' => Str::slug($book->authors->name)]) }}"
+                href="{{ route('author.book', ['author' => Str::slug($book->authors->name)]) }}"
+                class="text-decoration-none text-success"
               > 
                 {{ $book->authors->name }} 
               </a> 
@@ -41,13 +42,23 @@
           <tr>
             <th scope="row">Жанр</th>
             <td> 
-              <a href="{{ route('genre.book', ['name' => Str::slug($book->genres->name)]) }}"> {{ $book->genres->name }} </a> 
+              <a 
+                href="{{ route('genre.book', ['name' => Str::slug($book->genres->name)]) }}"
+                class="text-decoration-none text-success"
+              > 
+                {{ $book->genres->name }} 
+              </a> 
             </td>
           </tr>
           <tr>
             <th scope="row">Издательство</th>
             <td> 
-              <a href="{{ route('publisher.book', ['name' => Str::slug($book->publishers->name)]) }}"> {{ $book->publishers->name }} </a> 
+              <a 
+                href="{{ route('publisher.book', ['name' => Str::slug($book->publishers->name)]) }}"
+                class="text-decoration-none text-success"
+              > 
+                {{ $book->publishers->name }} 
+              </a> 
             </td>
           </tr>
           <tr>
@@ -68,7 +79,12 @@
           </tr>
           <tr>
             <th scope="row">Рейтинг</th>
-            <td> {{ $book->ratings ? round($book->ratings->rating, 2) : 0 }} </td>
+            <td> 
+              {{ $book->ratings ? round($book->ratings->rating, 2) : "-" }}
+              @if ($book->ratings)
+                <small>({{round((($book->ratings->rating*100)/5), 1)}}%)</small>
+              @endif
+            </td>
           </tr>
         </tbody>
       </table>

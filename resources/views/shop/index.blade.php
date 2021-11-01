@@ -17,7 +17,7 @@
 
 
     <!-- start 8 -->
-    <div class="col-6">
+    <div class="col-lg-6">
 
     	@foreach($books as $book)
 		<ol class="list-group">
@@ -48,7 +48,7 @@
     <!-- end 8 -->
 
     <!-- start 4 -->
-    <div class="col-6">
+    <div class="col-lg-6">
     </div>
     <!-- end 4 -->
 

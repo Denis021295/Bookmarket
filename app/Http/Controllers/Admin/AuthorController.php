@@ -9,6 +9,7 @@ use App\Models\Book;
 use App\Models\Genre;
 use App\Models\Publisher;
 use App\Models\Language;
+use Illuminate\Support\Str;
 
 
 class AuthorController extends Controller

@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en">
 @include('layouts.head')
+<link rel="stylesheet" href="../public/font/bootstrap-icons.css">
 <body>
     
 
@@ -12,7 +13,9 @@
   <section class="py-5 text-center container">
     <div class="row py-lg-5">
       <div class="col-lg-6 col-md-8 mx-auto">
-        <h1 class="fw-light">@foreach($books as $book) {{ $book->name }}  @endforeach</h1>
+        <h1 class="fw-light"> 
+        	{{ $books[0]->flag }}
+        </h1>
         <p class="lead text-muted">Находите, покупайте, читайте что Вам по душе</p>
       </div>
     </div>
@@ -25,20 +28,18 @@
 
         
 		@foreach($books as $book)
-			@foreach($book->books as $item)
-
 		        <div class="col">
 		          <div class="card shadow-sm">
 		          	<span class="bd-placeholder-img card-img-top" width="100%" height="225">
-		          		<img height="400" width="100%" src="../{{ $item->getImage() }}">
+		          		<img height="400" width="100%" src="../{{ $book->getImage() }}">
 		          	</span>
 		            <div class="card-body">
 		              	<p 
 		              		class="card-text text-center"
 		              	> 
-		              		{{ $item->authors->name }} - {{ $item->title }}
+		              		{{ $book->authors->name }} - {{ $book->title }}
 		              		<br>
-		              		<strong> {{ $item->price ? $item->price : 'Free'  }} ₴ </strong>
+		              		<strong> {{ $book->price ? $book->price : 'Free'  }} ₴ </strong>
 		              	</p>
 		              <div class="d-flex justify-content-between align-items-center">
 		                <div class="btn-group">
@@ -46,7 +47,7 @@
 		              			class="px-1"
 		              		>
 		              			<a 
-		              				href="{{ route('view.book', ['id' => $item->id]) }}" 
+		              				href="{{ route('view.book', ['id' => $book->id]) }}" 
 		              				class="btn btn-outline-success btn-xs" 
 		              				tabindex="-1" 
 		              				role="button" 
@@ -57,31 +58,25 @@
 		              		</span>
 		                </div>
 		                <small class="text-muted">
-
-							<svg
-								xmlns="http://www.w3.org/2000/svg" 
-								width="16" 
-								height="16" 
-								fill="currentColor" 
-								class="bi bi-layout-text-sidebar-reverse" 
-								viewBox="0 0 16 16"
-							>
-		  						<path 
-		  							d="M12.5 3a.5.5 0 0 1 0 1h-5a.5.5 0 0 1 0-1h5zm0 3a.5.5 0 0 1 0 1h-5a.5.5 0 0 1 0-1h5zm.5 3.5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 .5-.5zm-.5 2.5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1 0-1h5z"
-		  						/>
-		  						<path 
-		  							d="M16 2a2 2 0 0 0-2-2H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2zM4 1v14H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h2zm1 0h9a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H5V1z"/>
-							</svg>
-							{{ $item->pages }}
+						<i class="bi bi-layout-text-sidebar-reverse"></i>
+							{{ $book->pages }}
 		            	</small>
 		              </div>
 		            </div>
 		          </div>
 		        </div>
 
-
 			@endforeach
-		@endforeach
+
+
+
+			<div 
+				class="mt-4" 
+				style="margin: 0 auto; width: 6rem;"
+			> 
+				{{ $books->links() }} 
+			</div>
+
 
 
           </div>
