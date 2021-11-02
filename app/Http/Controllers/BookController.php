@@ -14,8 +14,14 @@ class BookController extends Controller
 {
     public function index() 
     {
+        $client = collect([]);
+
+        if (Auth::check() && Auth::user()->id) {
+            $client = Client::find(auth()->user()->id);
+        }
+
     	$books = Book::with('authors', 'clients', 'ratings', 'comments')->orderBy('id', 'desc')->paginate(9);
-    	return view('books.index', compact('books'));
+    	return view('books.index', compact('books','client'));
     }
 
     public function view($id) 
@@ -49,6 +55,12 @@ class BookController extends Controller
 
     public function sort(Request $request)
     {
+        $client = collect([]);
+
+        if (Auth::check() && Auth::user()->id) {
+            $client = Client::find(auth()->user()->id);
+        }
+
         if ($request->sort == 'rating') {
             $books = collect([]);
             $ratings = Rating::select('*')->with('books', function ($query){
@@ -59,12 +71,12 @@ class BookController extends Controller
                 $books->push($rating->books);
             }
             session()->flash('sort', $request->sort);
-            return view('books.index', compact('books'));
+            return view('books.index', compact('books','client'));
         }
 
         $books = Book::with('authors','comments','ratings', 'clients')->orderBy($request->sort, 'desc')->get();
         session()->flash('sort', $request->sort);
-        return view('books.index', compact('books'));
+        return view('books.index', compact('books','client'));
     }
 
     public function rating(Request $request, Book $book) 

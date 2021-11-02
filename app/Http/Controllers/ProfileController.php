@@ -22,7 +22,7 @@ class ProfileController extends Controller
 			return abort(403, 'Доступ запрещен!');
 		}
 
-		$bns = $client->books->count() * 25;
+		$bns = $client->books->count() * 15;
 		$books = Book::orderBy('id','desc')->with('authors')->limit(8)->get();
 		session()->flash('ava', 1);
 		return view('profile.bonus', compact('client','bns','books'));
@@ -35,7 +35,7 @@ class ProfileController extends Controller
 			return abort(403, 'Доступ запрещен!');
 		}
 
-		$coin = round((($client->books->count() * 25) * 0.01), 1);
+		$coin = round((($client->books->count() * 15) * 0.01), 1);
 		session()->flash('ava', 1);
 		return view('profile.coins', compact('client','coin'));
 	}

@@ -77,7 +77,28 @@
               	> 
               		{{ $book->authors->name }} - {{ $book->title }}
               		<br>
-              		<strong> {{ $book->price ? $book->price : 'Free'  }} ₴ </strong>
+
+                  @auth
+                    @if (!$client->hasBonus())
+                      <strong> {{ $book->price ? $book->price : 'Free'  }} ₴ </strong>
+                    @else
+                    <strong>
+                      <s>{{ $book->price }}</s>
+                      {{ 
+                        $client->hasBonus() && (($book->price - $client->hasBonus()) > 0)
+                        ?
+                        ($book->price - $client->hasBonus()).' ₴'
+                        :
+                        'Бесплатно'
+                      }}
+                    </strong>
+                    @endif
+                  @endauth
+
+                  @guest
+                    <strong> {{ $book->price ? $book->price : 'Free'  }} ₴ </strong>
+                  @endguest
+
               	</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">

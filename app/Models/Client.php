@@ -39,4 +39,13 @@ class Client extends Authenticatable
 		return $this->first_name.' '.$this->last_name;
 	}
 
+	public function hasBonus()
+	{
+		if ($this->books->count() > 0) 
+		{
+			return $this->books->count() * 15;
+		}
+		return false;
+	}
+
 }

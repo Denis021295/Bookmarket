@@ -41,6 +41,7 @@
                   </a>
                   <br>
                 @endif
+                <br>
               <a 
                 class="text-decoration-none text-light" 
                 href="{{ route('basket') }}"
