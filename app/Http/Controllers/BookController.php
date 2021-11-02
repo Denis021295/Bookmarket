@@ -14,7 +14,7 @@ class BookController extends Controller
 {
     public function index() 
     {
-    	$books = Book::with('authors', 'clients', 'ratings', 'comments')->orderBy('id', 'desc')->paginate(6);
+    	$books = Book::with('authors', 'clients', 'ratings', 'comments')->orderBy('id', 'desc')->paginate(9);
     	return view('books.index', compact('books'));
     }
 
@@ -69,7 +69,7 @@ class BookController extends Controller
 
     public function rating(Request $request, Book $book) 
     {
-        if (Rating::where('book_id', "=", $book->id)->get()->count() == 0) 
+        if (Rating::where('book_id', $book->id)->get()->count() == 0) 
         {
             $book->ratings()->create([
                 'book_id' => $book->id,

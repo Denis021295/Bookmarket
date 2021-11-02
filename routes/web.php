@@ -51,6 +51,8 @@ Route::group(['middleware'=>'auth'], function()
 	Route::post('/update_user_data/{id}', [SettingsController::class, 'data'])->name('upd.user');
 	Route::post('/update_password/{id}', [SettingsController::class, 'new_password'])->name('upd.password');
 	Route::get('profile/{client:email}', [ProfileController::class, 'client'])->name('profile.user');
+	Route::get('profile/{client:email}/bonus', [ProfileController::class, 'bonus'])->name('user.bonus');
+	Route::get('profile/{client:email}/coins', [ProfileController::class, 'coin'])->name('user.coins');
 });
 
 

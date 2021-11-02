@@ -17,6 +17,7 @@ class Client extends Authenticatable
 {
     protected $table = "clients";
     protected $fillable = ['email','password'];
+    protected $hidden = ['created_at','updated_at','is_admin'];
 
     public function books() 
 	{
@@ -25,7 +26,7 @@ class Client extends Authenticatable
 
 	public function comments() 
 	{
-		return $this->hasMany(Comment::class);	
+		return $this->hasMany(Comment::class, 'client_id');	
 	}
 
 	public function getImage()

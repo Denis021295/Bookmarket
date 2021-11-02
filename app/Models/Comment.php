@@ -14,7 +14,7 @@ class Comment extends Model
    	
    	public function books() 
 	{
-		return $this->belongsTo(Book::class, 'id');
+		return $this->belongsTo(Book::class, 'book_id');
 	}
 
 	public function clients() 

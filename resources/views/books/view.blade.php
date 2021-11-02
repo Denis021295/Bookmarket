@@ -109,26 +109,29 @@
     @endauth
 
 
-
       <div class="text-center mb-5"> 
         <div class="display-6"> {{ $book->price }} ₴ </div>
         <div class="mt-0 display-6">
-
-            @if (Gate::allows('book-in-basket', $book->clients))
-              <i class="bi bi-bag-check"></i>
-              Книга добавлена
-            @else
-              <i class="bi bi-bag-plus"></i>
-              <a 
-                href="{{ route('shop.book', ['id' => $book->id]) }}"
-                class="text-decoration-none"
-              > 
-              Добавить в корзину 
-            </a>
-            @endif
-
-        </div> 
+            @auth
+              @if (Gate::allows('book-in-basket', $book->clients))
+                <i class="bi bi-bag-check"></i>
+                Книга добавлена
+              @else
+                <i class="bi bi-bag-plus"></i>
+                <a 
+                  href="{{ route('shop.book', ['id' => $book->id]) }}"
+                  class="text-decoration-none"
+                > 
+                Добавить в корзину 
+              </a>
+              @endif
+            @endauth
+        </div>
+            @guest
+              <small>(только зарегистрированные пользователи могут совершать покупки)</small>
+            @endguest
       </div>
+
 
       <div style="white-space: pre-line; text-align: justify;">
         {{ $book->description }}

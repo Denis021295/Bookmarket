@@ -5,6 +5,7 @@
 @endphp
 
 
+<link rel="stylesheet" href="../public/font/bootstrap-icons.css">
 @section('title', 'Профиль | '.$client->email)
 
 
@@ -19,18 +20,7 @@
 
 		<!-- 3 -->
 		<div class="col-lg-3">
-			<div 
-				class="alert alert-info p-1" role="alert"
-			>
-				<div 
-					class="alert alert-light p-1 mb-1 text-center" 
-					role="alert"
-				>
-					<b> {{ $client->login ?? $client->email }} </b>
-					<small> ({{ $client->full_user_real_name() }}) </small>
-				</div>
-				<img src="{{ $client->getImage() }}" width="100%">
-			</div>
+			@include('profile.menu')
 		</div>
 		<!-- end 3 -->
 

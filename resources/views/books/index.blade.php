@@ -29,10 +29,19 @@
     
 
     <div class="text-center mb-3 mt-0">
-      <form action="{{ route('sort.book') }}" method="POST">
+      <form 
+        action="{{ route('sort.book') }}"
+        method="POST"
+      >
         @csrf
-        Сортировать по
-        <select name="sort">
+        <span class="h5 m-0"> 
+          Сортировать по 
+        </span>
+        <select 
+          name="sort" 
+          class="form-control text-center w-auto mt-2 mb-2 cursor-pointer" 
+          style="margin: 0 auto;"
+        >
           <option value="rating">рейтингу</option>
           <option value="title">названию</option>
           <option value="id">дате</option>
@@ -45,6 +54,7 @@
       </form>
       @if(session()->has('sort'))
         <div class="alert alert-light p-2 mt-3 h5" role="alert">
+          <i class="bi bi-sort-up"></i> 
           Сортировка | <b>{{ Str::upper(session('sort')) }}</b>
         </div>
       @endif
