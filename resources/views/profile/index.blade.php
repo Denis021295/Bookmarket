@@ -30,7 +30,7 @@
 				<div class="alert alert-info" role="alert">Вы не добавили ни одного комментария...</div>
 			@else
 				<div class="alert alert-info p-1" role="alert">
-					@foreach($client->comments as $comment)
+					@foreach($client->comments->sortByDesc('id') as $comment)
 						<div 
 							class="alert alert-light p-1 mb-1" 
 							role="alert"

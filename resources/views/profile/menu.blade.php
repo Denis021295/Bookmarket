@@ -25,7 +25,7 @@
 				class="text-decoration-none text-dark"
 			>
 				<i class="bi bi-chat-left"></i> 
-				Комментарии
+				Комментарии ({{ auth()->user()->comments->count() }})
 			</a>
 		</div>
 		<div class="alert alert-light mt-1 mb-1 p-2" role="alert">
@@ -52,7 +52,7 @@
 				class="text-decoration-none text-dark"
 			>
 				<i class="bi bi-bookmark-check"></i>
-				Список желаний
+				Список желаний ({{ auth()->user()->wishlist->count() }})
 			</a>
 		</div>
 		<div class="alert alert-light mt-1 mb-0 p-2" role="alert">

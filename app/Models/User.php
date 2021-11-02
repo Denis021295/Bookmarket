@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\Book;
 use App\Models\Wishlists;
+use App\Models\Comment;
 
 
 
@@ -58,6 +59,11 @@ class User extends Authenticatable
     public function wishlist() 
     {
         return $this->hasMany(Wishlists::class, 'client_id');
+    }
+
+    public function comments() 
+    {
+        return $this->hasMany(Comment::class, 'client_id'); 
     }
 
     public function hasBonus()
