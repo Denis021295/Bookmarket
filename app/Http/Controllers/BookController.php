@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Book;
 use App\Models\Client;
 use App\Models\Rating;
+use App\Models\Wishlists;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -14,14 +15,8 @@ class BookController extends Controller
 {
     public function index() 
     {
-        $client = collect([]);
-
-        if (Auth::check() && Auth::user()->id) {
-            $client = Client::find(auth()->user()->id);
-        }
-
     	$books = Book::with('authors', 'clients', 'ratings', 'comments')->orderBy('id', 'desc')->paginate(9);
-    	return view('books.index', compact('books','client'));
+    	return view('books.index', compact('books'));
     }
 
     public function view($id) 
@@ -55,12 +50,6 @@ class BookController extends Controller
 
     public function sort(Request $request)
     {
-        $client = collect([]);
-
-        if (Auth::check() && Auth::user()->id) {
-            $client = Client::find(auth()->user()->id);
-        }
-
         if ($request->sort == 'rating') {
             $books = collect([]);
             $ratings = Rating::select('*')->with('books', function ($query){
@@ -71,12 +60,12 @@ class BookController extends Controller
                 $books->push($rating->books);
             }
             session()->flash('sort', $request->sort);
-            return view('books.index', compact('books','client'));
+            return view('books.index', compact('books'));
         }
 
         $books = Book::with('authors','comments','ratings', 'clients')->orderBy($request->sort, 'desc')->get();
         session()->flash('sort', $request->sort);
-        return view('books.index', compact('books','client'));
+        return view('books.index', compact('books'));
     }
 
     public function rating(Request $request, Book $book) 
@@ -95,6 +84,19 @@ class BookController extends Controller
             $book->ratings()->update([
                 'book_id' => $book->id,
                 'rating' => $avg
+            ]);
+            return redirect()->back();
+        }
+    }
+
+
+    public function wish(Book $book)
+    {
+        if (Wishlists::where(['book_id' => $book->id], ['client_id' => auth()->user()->id])->count() == 0)
+        {
+            Wishlists::create([
+                'client_id' => auth()->user()->id,
+                'book_id' => $book->id,
             ]);
             return redirect()->back();
         }

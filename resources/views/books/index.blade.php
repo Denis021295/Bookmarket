@@ -79,15 +79,15 @@
               		<br>
 
                   @auth
-                    @if (!$client->hasBonus())
+                    @if (!auth()->user()->hasBonus())
                       <strong> {{ $book->price ? $book->price : 'Free'  }} ₴ </strong>
                     @else
                     <strong>
                       <s>{{ $book->price }}</s>
                       {{ 
-                        $client->hasBonus() && (($book->price - $client->hasBonus()) > 0)
+                        (($book->price - auth()->user()->hasBonus()) > 0)
                         ?
-                        ($book->price - $client->hasBonus()).' ₴'
+                        ($book->price - auth()->user()->hasBonus()).' ₴'
                         :
                         'Бесплатно'
                       }}

@@ -11,6 +11,7 @@ use App\Models\Language;
 use App\Models\Client;
 use App\Models\Comment;
 use App\Models\Rating;
+use App\Models\Wishlists;
 
 
 
@@ -54,6 +55,11 @@ class Book extends Model
 	{
 		return $this->hasOne(Rating::class, 'book_id');
 	}
+
+	public function wishlist() 
+    {
+        return $this->hasMany(Wishlists::class, 'book_id');
+    }
 
 	public function getImage()
 	{

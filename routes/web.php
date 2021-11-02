@@ -53,6 +53,9 @@ Route::group(['middleware'=>'auth'], function()
 	Route::get('profile/{client:email}', [ProfileController::class, 'client'])->name('profile.user');
 	Route::get('profile/{client:email}/bonus', [ProfileController::class, 'bonus'])->name('user.bonus');
 	Route::get('profile/{client:email}/coins', [ProfileController::class, 'coin'])->name('user.coins');
+	Route::get('wishlist/{book}', [BookController::class, 'wish'])->name('book.wishlist');
+	Route::get('profile/{client:email}/wishlist', [ProfileController::class, 'wish'])->name('profile.wishlist');
+	Route::post('del-wishlist/{id}', [ProfileController::class, 'wish_del'])->name('wishlist.del');
 });
 
 

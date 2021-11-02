@@ -35,5 +35,12 @@ class AppServiceProvider extends ServiceProvider
         Gate::define('book-in-basket', function($user, $clients) {
             return $clients->where('login', $user->login)->count();
         });
+
+        Gate::define('book-in-list', function($user, $book) {
+            return $user->wishlist
+                ->where('client_id', $user->id)
+                ->where('book_id', $book->id)
+                ->count();
+        });
     }
 }

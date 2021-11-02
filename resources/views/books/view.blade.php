@@ -110,9 +110,46 @@
 
 
       <div class="text-center mb-5"> 
-        <div class="display-6"> {{ $book->price }} ₴ </div>
+        <div class="display-6"> 
+
+          @auth
+            @if (auth()->user()->hasBonus())
+              <s>{{ $book->price }}</s>
+              {{ 
+                ($book->price - auth()->user()->hasBonus()) > 0
+                ?
+                $book->price - auth()->user()->hasBonus().' ₴'
+                :
+                'Бесплатно'
+              }}
+            @else
+              {{ $book->price }} ₴
+            @endif
+          @endauth
+
+          @guest
+            {{ $book->price }} ₴
+          @endguest
+
+        </div>
         <div class="mt-0 display-6">
+
             @auth
+              <div class="mt-1 mb-2">
+                @if (Gate::allows('book-in-list', $book))
+                  <i class="bi bi-bookmark-check"></i>
+                  Книга в списке желаний
+                @else
+                  <i class="bi bi-bookmark-plus"></i>
+                  <a 
+                    href="{{ route('book.wishlist', ['book' => $book->id]) }}"
+                    class="text-decoration-none text-dark"
+                  >
+                    Добавить в список желаний
+                  </a>
+                @endif
+              </div>
+
               @if (Gate::allows('book-in-basket', $book->clients))
                 <i class="bi bi-bag-check"></i>
                 Книга добавлена
