@@ -41,13 +41,15 @@
                   </a>
                   <br>
                 @endif
-                <br>
               <a 
                 class="text-decoration-none text-light" 
                 href="{{ route('basket') }}"
               >
                 <i class="bi bi-bag"></i> 
-                Корзина 
+                Корзина
+                <span class="badge bg-warning text-dark">
+                  {{ auth()->user()->books->count() }}
+                </span>
               </a>
               <br>
               <a 

@@ -10,7 +10,34 @@
 
 
 <main>
+
 <div class="container mt-5">
+
+  <div class="mt-1 mb-0">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a 
+            href="{{ route('home') }}"
+            class="text-decoration-none"
+          >
+            <i class="bi bi-house"></i>
+            Главная
+          </a>
+        </li>
+        <li class="breadcrumb-item">
+          <a 
+            href="{{ route('author.book', ['author' => Str::slug($book->authors->name)]) }}"
+            class="text-decoration-none"
+          > 
+            {{ $book->authors->name }} 
+          </a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page"> {{ $book->title }} </li>
+      </ol>
+    </nav>
+  </div>
+
   <div class="row mb-2">
     <div class="col-12 display-6 mb-2"> {{ $book->title }} </div>
   </div>
